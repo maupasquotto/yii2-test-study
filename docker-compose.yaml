@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  web:
+    image: yii2:8.1-apache
+    ports:
+      - "4500:80"
+    expose:
+      - 9000
+      - 9003
+    volumes:
+      - ./app:/app
+      - ./app/docker/php.ini-dev:/usr/local/etc/php/php.ini
+      - ./app/docker/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    volumes:
+      - ../phpAdminIniConfig.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
