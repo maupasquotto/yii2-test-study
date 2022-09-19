@@ -6,8 +6,7 @@ services:
     ports:
       - "4500:80"
     expose:
-      - 9000
-      - 9003
+      - 9010
     volumes:
       - ./app:/app
       - ./app/docker/php.ini-dev:/usr/local/etc/php/php.ini
